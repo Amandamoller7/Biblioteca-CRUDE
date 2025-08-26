@@ -1,41 +1,43 @@
-<?php
-include('../../db/conexao.php');
+<?php 
+include('../../db/db.php');
 
+
+$id = $_GET['id'];
+$dados = $conn->query("SELECT * FROM jogadores WHERE id=$id")->fetch_assoc();
 ?>
 
 <div class="container mt-4">
-    <h2 class="mb-4">Cadastrar Autor</h2>
+    <h2 class="mb-4">Editar Autor</h2>
 
     <form method="POST" class="row g-3">
         <div class="col-md-6">
             <label for="nome" class="form-label">Nome</label>
-            <input type="text" name="nome" id="nome" class="form-control" required>
+            <input type="text" name="nome" id="nome" value="<?= $dados['nome'] ?>" class="form-control" required>
         </div>
-
-    <form method="POST" class="row g-3">
+       <form method="POST" class="row g-3">
         <div class="col-md-6">
             <label for="nacionalidade" class="form-label">Nacionalidade</label>
-            <input type="text" name="nacionalidade" id="nacionalidade" class="form-control" required>
+            <input type="text" name="nacionalidade" id="nacionalidade" <?= $dados['nome'] ?> class="form-control" required>
         </div>
 
         <div class="col-md-6">
             <label for="ano_nacimento" class="form-label">Ano de Nascimento</label>
-            <input type="number" name="ano_nacimento" id="ano_nacimento" class="form-control"  required>
+            <input type="number" name="ano_nacimento" id="ano_nacimento" <?= $dados['nome'] ?> class="form-control"  required>
         </div>
 
-        </select>
+            </select>
         </div>
 
         <div class="col-12">
-            <button type="submit" name="salvar" class="btn btn-success">Salvar</button>
+            <button type="submit" name="atualizar" class="btn btn-primary">Atualizar</button>
             <a href="read.php" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
 </div>
 
 <?php
-if (isset($_POST['salvar'])) {
-    $nome = $_POST['nome'];
+if (isset($_POST['atualizar'])) {
+     $nome = $_POST['nome'];
     $nacionalidade = $_POST['nacionalidade'];
     $ano_nacscmiento = $_POST['ano_nacimento'];
 
